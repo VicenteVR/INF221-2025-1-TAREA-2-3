@@ -17,29 +17,25 @@ int main() {
     cin >> K;
     cout << K << '\n';
 
-    // Abrimos archivo para guardar mediciones
-    ofstream fout("data/measurements/a.txt"); // append
+    ofstream fout("data/measurements/a.txt");
 
     string linea;
-    getline(cin, linea); // limpiar salto pendiente
+    getline(cin, linea);
 
     for (int i = 0; i < K; ++i) {
         int n, m;
         string s, t;
 
-        // Leer línea 1
         getline(cin, linea);
         stringstream ss1(linea);
         ss1 >> n;
         s = linea.substr(linea.find(' ') + 1);
 
-        // Leer línea 2
         getline(cin, linea);
         stringstream ss2(linea);
         ss2 >> m;
         t = linea.substr(linea.find(' ') + 1);
 
-        // Medición de tiempo individual
         auto inicio = chrono::high_resolution_clock::now();
 
         auto diferencias = obtener_diferencias(s, t);

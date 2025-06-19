@@ -20,19 +20,17 @@ int main() {
     string linea;
     getline(cin, linea); // limpiar salto después de K
 
-    ofstream fout("data/measurements/a.txt"); // modo append
+    ofstream fout("data/measurements/a.txt");
 
     for (int i = 0; i < K; ++i) {
         int n, m;
         string s, t;
 
-        // Leer línea 1
         getline(cin, linea);
         stringstream ss1(linea);
         ss1 >> n;
         s = linea.substr(linea.find(' ') + 1);
 
-        // Leer línea 2
         getline(cin, linea);
         stringstream ss2(linea);
         ss2 >> m;
