@@ -1,8 +1,15 @@
-\begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 6 página.}
-\end{mdframed}
-
 
 \epigraph{``\textit{Non-reproducible single occurrences are of no significance to
 science.}''}{---\citeauthor{popper2005logic},\citeyear{popper2005logic} \cite{popper2005logic}}
-En la sección de Experimentos, es fundamental detallar la infraestructura utilizada para asegurar la reproducibilidad de los resultados, un principio clave en cualquier experimento científico. Esto implica especificar tanto el hardware (por ejemplo, procesador Intel Core i7-9700K, 3.6 GHz, 16 GB RAM DDR4, almacenamiento SSD NVMe) como el entorno software (sistema operativo Ubuntu 20.04 LTS, compilador g++ 9.3.0, y cualquier librería relevante). Además, se debe incluir una descripción clara de las condiciones de entrada, los parámetros utilizados y los resultados obtenidos, tales como tiempos de ejecución y consumo de memoria, que permitan a otros replicar los experimentos en entornos similares. \textit{La replicabilidad es un aspecto crítico para validar los resultados en la investigación científica computacional} \cite{inbookFonseca}.
+Los experimentos realizados en esta tarea se llevaron a cabo en un entorno controlado para garantizar la reproducibilidad de los resultados. La infraestructura utilizada es la siguiente:
+
+\begin{itemize}
+    \item \textbf{Hardware:} Procesador	11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz   2.42 GHz, 8 GB RAM, almacenamiento SSD Intel Optane.
+    \item \textbf{Software:} Sistema operativo Ubuntu 22.04 LTS corriendo bajo WSL (Windows Subsystem for Linux) sobre Windows 10. Compilador \texttt{g++ 11.4.0} con soporte para \texttt{-std=c++17}. Scripts complementarios en Python 3.10.12.
+\end{itemize}
+
+Ambos algoritmos fueron compilados utilizando un \texttt{makefile}, lo que permite replicar el proceso sin ambigüedades. Las mediciones se realizaron ejecutando ambos programas sobre un conjunto de datos fijo, generado por un script controlado, que produce un archivo con 10 casos de prueba variados en tamaño, estructura y contenido. Cada ejecución procesa exactamente los mismos datos de entrada, asegurando una comparación justa entre los paradigmas.
+
+Se midió el tiempo de ejecución de cada caso utilizando la librería estándar \texttt{<chrono>} en C++, y se estimó el uso de memoria con base en las estructuras activas utilizadas por cada algoritmo. Los resultados se almacenaron en archivos de texto para su posterior graficación.
+
+El propósito de los experimentos es comparar de forma empírica la eficiencia y escalabilidad de dos estrategias algorítmicas para resolver el mismo problema, en condiciones equivalentes y sobre entradas diseñadas para mostrar diferencias significativas de rendimiento.

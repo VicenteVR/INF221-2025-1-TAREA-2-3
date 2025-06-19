@@ -1,0 +1,1 @@
+print("Utilizar el script generador de entradas en la seccion de dynamic_programming, la ruta es: code/dynamic_programming/scripts/input_generator.py")

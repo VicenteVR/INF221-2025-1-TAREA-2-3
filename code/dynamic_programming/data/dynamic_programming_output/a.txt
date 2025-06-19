@@ -1,12 +1,105 @@
-3
-3
-BC E
-G F
- R
-4
-A 
-G Z
- Z
- M
+10
 1
-un otro
+P O
+1
+R Q
+3
+R Q
+S R
+T S
+4
+T S
+U T
+S R
+T S
+9
+T S
+U T
+V U
+T S
+U T
+V U
+T S
+U T
+V U
+9
+V U
+W V
+U T
+V U
+U T
+V U
+W V
+U T
+W V
+15
+V U
+W V
+X W
+V U
+W V
+X W
+V U
+W V
+X W
+V U
+W V
+X W
+V U
+W V
+X W
+14
+X W
+Y X
+W V
+X W
+W V
+X W
+Y X
+W V
+Y X
+W V
+X W
+Y X
+X W
+Y X
+20
+X W
+Y X
+Z Y
+X W
+Y X
+Z Y
+X W
+Y X
+Z Y
+X W
+Y X
+Z Y
+X W
+Y X
+Z Y
+X W
+Y X
+Z Y
+X W
+Y X
+18
+Z Y
+A Z
+Y X
+Z Y
+Y X
+Z Y
+A Z
+Y X
+A Z
+Y X
+Z Y
+A Z
+Z Y
+A Z
+Y X
+Z Y
+Y X
+Z Y

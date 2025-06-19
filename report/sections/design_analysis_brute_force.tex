@@ -1,42 +1,46 @@
 \epigraph{\textit{``Indeed, brute force is a perfectly good technique in many cases; the real question is, can we use brute force in such a way that we avoid the worst-case behavior?''}}{--- \citeauthor{taocv3}, \citeyear{taocv3} \cite{taocv3}}
 
+El enfoque de fuerza bruta consiste en generar de forma recursiva todas las posibles subsecuencias comunes entre las cadenas $s$ y $t$, seleccionando aquella de mayor longitud. A partir de esta subsecuencia común más larga (LCS), se reconstruyen las diferencias entre las cadenas comparando los bloques que quedan entre cada carácter coincidente.
+
+El procedimiento recorre todas las combinaciones posibles avanzando en una de las dos cadenas o en ambas, y acumulando la subsecuencia cuando los caracteres coinciden. La diferencia entre las cadenas se obtiene después recorriendo $s$ y $t$ en paralelo, detectando fragmentos que no coinciden con la LCS.
+
+Este método cumple con la definición clásica de fuerza bruta, ya que no evita ningún subproblema ni aplica poda o memoria intermedia.
+
 \begin{algorithm}[H]
-    \SetKwProg{myproc}{Procedure}{}{}
-    \SetKwFunction{AlgorithmName}{AlgorithmName}  % Cambia 'AlgorithmName' por el nombre del enfoque elegido
-    \SetKwFunction{AuxiliaryFunction}{AuxiliaryFunction}  % Función auxiliar de ejemplo
-    
-    \DontPrintSemicolon
+    \SetKwProg{myproc}{Procedure}{}{end}
+    \SetKwFunction{BruteLCS}{BruteLCS}
+    \SetKwFunction{GenerarDiferencias}{GenerarDiferencias}
+
     \footnotesize
+    \DontPrintSemicolon
 
-    % Definición del algoritmo principal
-    \myproc{\AlgorithmName{S1, S2}}{
-    \uIf{S1 está vacía}{
-        \Return longitud de S2\;  % Return explícito si S1 está vacía
-    }
-    \uElseIf{S2 está vacía}{
-        \Return longitud de S1\;  % Return explícito si S2 está vacía
-    }
-    \uElseIf{S1[0] = S2[0]}{
-        \Return \AlgorithmName{S1[1:], S2[1:]}  % Llamada recursiva
-    }
-    \Else{
-        % Ejemplo de llamado a una función auxiliar
-        $costo \leftarrow \AuxiliaryFunction{S1, S2}$\;
-        \Return costo\;  % Retornar el valor calculado
-    }
+    \myproc{\BruteLCS{$s$, $t$, $i$, $j$, $actual$}}{
+        \uIf{$i = |s|$ or $j = |t|$}{
+            \If{$|actual| > |mejor\_subsecuencia|$}{
+                $mejor\_subsecuencia \gets actual$\;
+            }
+            \Return\;
+        }
+        \uIf{$s[i] = t[j]$}{
+            \BruteLCS{$s$, $t$, $i+1$, $j+1$, $actual + s[i]$}\;
+        }
+        \BruteLCS{$s$, $t$, $i+1$, $j$, $actual$}\;
+        \BruteLCS{$s$, $t$, $i$, $j+1$, $actual$}\;
     }
 
-    % Definición de la función auxiliar
-    \myproc{\AuxiliaryFunction{S1, S2}}{
-    % Acciones o cálculos auxiliares
-    \uIf{S1 y S2 son similares}{
-        \Return algún valor o costo\;  % Retornar el valor calculado por la función auxiliar
+    \myproc{\GenerarDiferencias{$s$, $t$}}{
+        $mejor\_subsecuencia \gets ""$\;
+        \BruteLCS{$s$, $t$, $0$, $0$, $""$}\;
+        $lcs \gets mejor\_subsecuencia$\;
+        Comparar $s$ y $t$ usando $lcs$ para extraer diferencias\;
     }
-    \Else{
-        % Llamar de nuevo a la función principal
-        \Return \AlgorithmName{S1 modificado, S2}\;  % Llamada recursiva y retorno del resultado
-    }
-    }
-    \caption{Este es solo un ejemplo de cómo estructurar el pseudocódigo, con retornos explícitos y llamados a funciones.}
-    \label{alg:mi_algoritmo_1}
+
+    \caption{Generación de LCS por fuerza bruta y reconstrucción de diferencias}
+    \label{alg:brute_force_lcs}
 \end{algorithm}
+
+\textbf{Complejidad temporal:} En el peor de los casos, se generan todas las subsecuencias de $s$ y se comparan con todas las de $t$. Dado que una cadena de largo $n$ tiene $2^n$ subsecuencias, la complejidad de este algoritmo es $O(3^{\max(n,m)})$ al recorrer el espacio recursivo de decisiones.
+
+\textbf{Complejidad espacial:} El algoritmo utiliza $O(n + m)$ espacio para representar la cadena actual acumulada y para la mejor subsecuencia encontrada. La pila de recursión tiene una profundidad máxima de $O(n + m)$.
+
+Este enfoque no es viable para entradas grandes, pero cumple su propósito como referencia para análisis comparativo, y como demostración del paradigma de fuerza bruta.

@@ -1,15 +1,15 @@
-\begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 1 página.}
-\end{mdframed}
-\begin{mdframed}
-    Cada algoritmo debe implementarse en el lenguaje de programación C++, siguiendo los formatos de entrada y salida.
-\end{mdframed}
-Aquí deben explicar la estructura de sus programas haciendo referencias a los archivos y funciones de su entrega. \textbf{No adjunte código en esta sección}.
+Esta tarea fue desarrollada en el lenguaje C++. Cada paradigma algorítmico se encuentra separado en directorios distintos, facilitando su mantenimiento y evaluación independiente.
 
-Agregar la url del repositorio de GitHub donde se encuentra el código fuente de la tarea. Recordar que el repositorio \textbf{debe ser privado}, ya que de lo contrario cualquier persona podrá acceder a su código y cometer plagio, siendo usted responsable de ello. 
+El algoritmo de fuerza bruta se encuentra en la carpeta code/brute\_force. El archivo principal es brute\_force.cpp, el cual lee los datos de entrada y procesa cada caso utilizando la función obtener\_diferencias, definida en algorithm/sequence\_difference.cpp. Esta función implementa una estrategia recursiva para generar todas las subsecuencias comunes posibles, seleccionando la más larga.
+
+El algoritmo basado en programación dinámica se ubica en code/dynamic\_programming, con su archivo principal dynamic\_programming.cpp. Este programa también llama a obtener\_diferencias desde el subdirectorio algorithm, donde se construye la tabla de LCS y se reconstruye la diferencia entre las cadenas.
+
+Ambos programas utilizan entradas desde archivos de texto ubicados en sus respectivas carpetas data/, y escriben la salida procesada y las mediciones en archivos separados. Cada uno cuenta con su propio makefile para compilar y ejecutar los casos de prueba automáticamente.
+
+El código fuente completo, junto con los scripts de generación de entrada y graficación de resultados, se encuentra disponible en el siguiente repositorio privado:
 
 \begin{mdframed}
     \begin{center}
-        {\Large \url{https://github.com/pabloealvarez/INF221-2025-1-TAREA-1}}
+        {\Large \url{https://github.com/VicenteVR/INF221-2025-1-TAREA-2-3}}
     \end{center}
 \end{mdframed}

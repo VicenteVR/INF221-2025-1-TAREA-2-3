@@ -1,65 +1,81 @@
 
 \epigraph{\textit{Dynamic programming is not about filling in tables. It's about smart recursion!}}{\citeauthor{algorithms_erickson}, \citeyear{algorithms_erickson} \cite{algorithms_erickson}}
 
-\begin{enumerate}[1)]
-    \item Describa la solución recursiva.
-    \item Escriba la relación de recurrencia, incluyendo condiciones y casos base.
-    \item Identifique subproblemas.
-    \item Defina estructura de datos a utilizar y especifique el orden de calculo que realiza su programa que utiliza programación dinámica. 
-\end{enumerate}
-
 \subsubsection{Descripción de la solución recursiva}
+
+El algoritmo se basa en calcular la subsecuencia común más larga (LCS) entre las cadenas $s$ y $t$, utilizando programación dinámica. Esta subsecuencia permite identificar los fragmentos compartidos y, por complemento, obtener las diferencias entre ambas cadenas. La solución recursiva compara los caracteres desde el final hacia el inicio, acumulando la longitud del LCS cuando los caracteres coinciden y eligiendo la mejor opción cuando no lo hacen.
 
 \subsubsection{Relación de recurrencia}
 
+Sea $dp[i][j]$ la longitud de la LCS entre los prefijos $s[0..i-1]$ y $t[0..j-1]$, entonces:
+
+\[
+dp[i][j] =
+\begin{cases}
+0 & \text{si } i = 0 \text{ o } j = 0 \\
+dp[i-1][j-1] + 1 & \text{si } s[i-1] = t[j-1] \\
+\max(dp[i-1][j], dp[i][j-1]) & \text{en otro caso}
+\end{cases}
+\]
+
 \subsubsection{Identificación de subproblemas}
+
+Los subproblemas corresponden a todos los pares de prefijos $(s[0..i], t[0..j])$ para $0 \leq i \leq n$ y $0 \leq j \leq m$. El total de subproblemas es $O(n \cdot m)$.
 
 \subsubsection{Estructura de datos y orden de cálculo}
 
+Se utiliza una matriz bidimensional $dp$ de tamaño $(n+1) \times (m+1)$, donde $n = |s|$ y $m = |t|$. La matriz se llena en orden ascendente sobre $i$ y $j$, es decir, fila por fila o columna por columna. Una vez llena la tabla, se reconstruye la LCS desde el final hacia el inicio, y se usan sus posiciones para extraer las diferencias entre bloques consecutivos de $s$ y $t$.
+
 \subsubsection{Algoritmo utilizando programación dinámica}
 
-
-
 \begin{algorithm}[H]
+    \SetKwProg{myproc}{Procedure}{}{end}
+    \SetKwFunction{DPDifferences}{DPDifferences}
+    \SetKwFunction{BuildLCS}{BuildLCS}
 
-    \SetKwProg{myproc}{Procedure}{}{}
-    \SetKwFunction{AlgorithmName}{AlgorithmName}  % Cambia 'AlgorithmName' por el nombre del enfoque elegido
-    \SetKwFunction{AuxiliaryFunction}{AuxiliaryFunction}  % Función auxiliar de ejemplo
-    
-    \DontPrintSemicolon
     \footnotesize
+    \DontPrintSemicolon
 
-    % Definición del algoritmo principal
-    \myproc{\AlgorithmName{S1, S2}}{
-    \uIf{S1 está vacía}{
-        \Return longitud de S2\;  % Return explícito si S1 está vacía
-    }
-    \uElseIf{S2 está vacía}{
-        \Return longitud de S1\;  % Return explícito si S2 está vacía
-    }
-    \uElseIf{S1[0] = S2[0]}{
-        \Return \AlgorithmName{S1[1:], S2[1:]}  % Llamada recursiva
-    }
-    \Else{
-        % Ejemplo de llamado a una función auxiliar
-        $costo \leftarrow \AuxiliaryFunction{S1, S2}$\;
-        \Return costo\;  % Retornar el valor calculado
-    }
+    \myproc{\DPDifferences{$s$, $t$}}{
+        $n \gets |s|$, $m \gets |t|$\;
+        Crear matriz $dp[0..n][0..m]$ inicializada en cero\;
+        \For{$i = 1$ \KwTo $n$}{
+            \For{$j = 1$ \KwTo $m$}{
+                \uIf{$s[i-1] = t[j-1]$}{
+                    $dp[i][j] \gets dp[i-1][j-1] + 1$\;
+                }
+                \Else{
+                    $dp[i][j] \gets \max(dp[i-1][j], dp[i][j-1])$\;
+                }
+            }
+        }
+        $lcs \gets$ \BuildLCS{$dp$, $s$, $t$}\;
+        Comparar $s$ y $t$ usando $lcs$ para extraer diferencias\;
     }
 
-    % Definición de la función auxiliar
-    \myproc{\AuxiliaryFunction{S1, S2}}{
-    % Acciones o cálculos auxiliares
-    \uIf{S1 y S2 son similares}{
-        \Return algún valor o costo\;  % Retornar el valor calculado por la función auxiliar
+    \myproc{\BuildLCS{$dp$, $s$, $t$}}{
+        $i \gets |s|$, $j \gets |t|$, $res \gets$ lista vacía\;
+        \While{$i > 0$ y $j > 0$}{
+            \uIf{$s[i-1] = t[j-1]$}{
+                Agregar $(i-1, j-1)$ al inicio de $res$\;
+                $i \gets i - 1$, $j \gets j - 1$\;
+            }
+            \uElseIf{$dp[i-1][j] \geq dp[i][j-1]$}{
+                $i \gets i - 1$\;
+            }
+            \Else{
+                $j \gets j - 1$\;
+            }
+        }
+        \Return $res$\;
     }
-    \Else{
-        % Llamar de nuevo a la función principal
-        \Return \AlgorithmName{S1 modificado, S2}\;  % Llamada recursiva y retorno del resultado
-    }
-    }
-    \caption{Este es solo un ejemplo de cómo estructurar el pseudocódigo, con retornos explícitos y llamados a funciones.}
-    \label{alg:mi_algoritmo_2}
+
+    \caption{Cálculo de LCS y diferencias usando programación dinámica}
+    \label{alg:dp_lcs}
 \end{algorithm}
 
-Todo lo correspondiente a esta sección es, digamos, en ``\href{https://dle.rae.es/metáfora}{lapiz y papel}'', en el sentido de que no necesita de implementaciones ni resultados experimentales. 
+\textbf{Complejidad temporal:} El algoritmo tiene complejidad $O(n \cdot m)$ debido al llenado de la matriz y la posterior reconstrucción de la LCS.
+
+\textbf{Complejidad espacial:} Se utiliza $O(n \cdot m)$ de espacio para la matriz de programación dinámica. En algunos casos, puede optimizarse a $O(\min(n, m))$ si solo interesa la longitud del LCS.
+
+Este enfoque es eficiente y escalable, lo que lo hace adecuado para entradas grandes en tiempo razonable.
